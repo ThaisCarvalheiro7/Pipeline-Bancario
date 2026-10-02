@@ -16,12 +16,6 @@ spark.sql("CREATE SCHEMA IF NOT EXISTS gold")
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC ## Preparação: enriquecer transações com o cliente
-# MAGIC A tabela `silver.transacoes` só tem `id_conta_origem`, não o cliente.
-# MAGIC Fazemos o join até `silver.contas` para descobrir de qual cliente é cada conta —
-# MAGIC essa tabela enriquecida é a base para as quatro métricas seguintes.
-
 # COMMAND ----------
 
 df_transacoes = spark.table("silver.transacoes")
@@ -50,7 +44,6 @@ print(f"Transações enriquecidas: {df_transacoes_enriquecidas.count()}")
 # MAGIC %md
 # MAGIC ## 1. Métricas por cliente e dia
 # MAGIC Volume e valor total movimentado por cliente, por dia — a granularidade
-# MAGIC mais fina de negócio, útil pra ver a evolução diária de um cliente específico.
 
 # COMMAND ----------
 
@@ -75,7 +68,7 @@ print(f"gold.metricas_cliente_dia: {df_metricas_cliente_dia.count()} linhas")
 
 # MAGIC %md
 # MAGIC ## 2. Ticket médio por tipo de transação
-# MAGIC Compara o comportamento entre PIX, TED, cartão etc. — útil pra entender
+# MAGIC Compara o comportamento entre PIX, TED, cartão etc
 # MAGIC qual canal concentra mais volume financeiro vs. mais quantidade de operações.
 
 # COMMAND ----------
@@ -102,7 +95,7 @@ print(f"gold.ticket_medio_por_tipo: {df_ticket_medio_tipo.count()} linhas")
 
 # MAGIC %md
 # MAGIC ## 3. Ranking de clientes por movimentação
-# MAGIC Quem mais movimenta dinheiro no período — o tipo de lista que compliance
+# MAGIC Quem mais movimenta dinheiro no período
 # MAGIC ou o time comercial de um banco olhariam de perto.
 
 # COMMAND ----------
